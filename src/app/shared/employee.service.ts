@@ -23,6 +23,9 @@ export class EmployeeService {
     isPermanent: new FormControl(false)
   });
 
+  /**
+   * Initialize the form with default values
+   */
   initializeFormGroup(){
     this.form.setValue(
       {
@@ -39,11 +42,18 @@ export class EmployeeService {
     );
   }
 
+  /**
+   * Get all employees from the DB
+   */
   getEmployees(){
     this.employeList = this.firebase.list('employees');
     return this.employeList.snapshotChanges();
   }
 
+  /**
+   * Create new employee in the DB
+   * @param employee 
+   */
   insertEmployee(employee){
     this.employeList.push({
       fullName: employee.fullName,
@@ -57,6 +67,10 @@ export class EmployeeService {
     });
   }
 
+  /**
+   * Updates employee in DB
+   * @param employee 
+   */
   updateEmplohyee(employee){
     this.employeList.update(employee.$key, 
       {
@@ -71,6 +85,10 @@ export class EmployeeService {
       });
   }
 
+  /**
+   * Delete employee in DB
+   * @param $key 
+   */
   deleteEmployee($key: string){
     this.employeList.remove($key);
   }
